@@ -1,0 +1,61 @@
+<html>
+    <head>
+    <title>MythTV Translation Status :: Summary :: [% srctype %] at commit [% revision %]</title>
+    <link rel="stylesheet" type="text/css" href="../mythtv-translation-status.css" />
+    </head>
+<body>
+<h1>MythTV Translation Status<br>
+Overall % of strings translated</h1>
+<p>
+<b>Branch:</b> [% srctype %] at commit [% revision %]<br>
+<b>Generated:</b> [% date %]<br>
+<b>Contact me:</b> <a href="mailto:knowledgejunkie@gmail.com">Nick Morrott</a><br>
+<b>Display stats for:</b> | <a href="../master/">Master</a> |
+                            <a href="../0-24-fixes/">0.24-fixes</a> |
+                            <a href="../0-23-fixes/">0.23-fixes</a> |
+                            <a href="../0-22-fixes/">0.22-fixes</a> |
+                            <a href="../0-21-fixes/">0.21-fixes</a> |<br>
+<br>
+<b>Want to help?</b> <a href="http://www.mythtv.org/wiki/Translation">Click here for details on how to contribute to MythTV translations</a><br>
+<b>Stats too low?</b> Make sure your <b>completed</b> translations are not marked as &quot;unfinished&quot; in QT Linguist/.ts file<br>
+</p>
+<table>
+<thead>
+<tr>
+<td class="language">Language</td>
+[% FOREACH r = results %]
+  <td class="revision"><a href="[% loop.index %]/result.html">[% r.meta.revision %]</a></td>
+[% END %]
+</tr>
+</thead>
+
+<tbody>
+[% FOREACH lang = languages %]
+<tr>
+  <td class="language">[% lang %]</td> 
+
+  [% FOREACH r = results %]
+    [% IF r.by_lang.$lang < 20 %]
+      <td class="p00_20"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 40 %]
+      <td class="p20_40"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 60 %]
+      <td class="p40_60"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 70 %]
+      <td class="p60_70"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 80 %]
+      <td class="p70_80"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 90 %]
+      <td class="p80_90"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang < 100 %]
+      <td class="p90_99"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% ELSIF r.by_lang.$lang == 100 %]
+      <td class="p100"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% END %]
+  [% END %]
+</tr>
+[% END %]
+</tbody>
+</table>
+</body>
+</html>

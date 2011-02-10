@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+# revert-dirs
+#
+# Copyright (c) 2010, 2011 Nick Morrott.
+
+# This file is part of MythTV Translation Tool.
+#
+# MythTV Translation Tool is free software: you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+#
+# MythTV Translation Tool is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General 
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with MythTV Translation Tool.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+
+use File::Path qw/rmtree/;
+use File::Copy qw/move/;
+
+if( scalar( @ARGV ) != 1 ) {
+  print STDERR << "EOH";
+
+revert-dirs <summarydir>
+
+summarydir shall be the parent directory under which each set of summary data to be reverted is stored
+
+EOH
+
+  exit 1;
+}
+
+my ( $summarydir ) = @ARGV;
+
+revert( $summarydir );
+
+sub revert {
+  my( $dir ) = @_;
+
+  rmtree( "$dir/0" );
+  move( "$dir/1", "$dir/0" );
+  move( "$dir/2", "$dir/1" );
+  move( "$dir/3", "$dir/2" );
+  move( "$dir/4", "$dir/3" );
+  move( "$dir/5", "$dir/4" );
+  move( "$dir/6", "$dir/5" );
+  move( "$dir/7", "$dir/6" );
+  move( "$dir/8", "$dir/7" );
+  move( "$dir/9", "$dir/8" );
+}

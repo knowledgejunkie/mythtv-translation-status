@@ -1,0 +1,44 @@
+thead        { font-weight: bold; }
+
+/* Summary Page */
+
+/* Yellow */
+td           { background-color: #FFFF00;
+               text-align: center; }
+
+td.language  { width: 120px; }
+
+td.revision  { width: 90px; }
+
+/* Details Page */
+
+td.component { width: 180px; }
+
+td.complete  { width: 120px; }
+
+/* Data cells */
+
+/* Red */
+td.p00_20    { background-color: #FF0000;
+               width: 90px; }
+/* OrangeRed */
+td.p20_40    { background-color: #FF4500;
+               width: 90px; }
+/* SandyBrown */
+td.p40_60    { background-color: #F4A460;
+               width: 90px; }
+/* Darkorange */
+td.p60_70    { background-color: #FF8C00;
+               width: 90px; }
+/* Orange */
+td.p70_80    { background-color: #FFA500;
+               width: 90px; }
+/* Yellow */
+td.p80_90    { background-color: #FFFF00;
+               width: 90px; }
+/* PaleGreen */
+td.p90_99    { background-color: #98FB98;
+               width: 90px; }
+/* Lime */
+td.p100      { background-color: #00FF00;
+               width: 90px; }

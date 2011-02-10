@@ -1,0 +1,137 @@
+MythTV Translation Status
+=========================
+
+
+OVERVIEW
+
+MythTV [1] is a leading open source personal video recorder (PVR), 
+built on the Qt4 toolkit.  It uses features in this toolkit to 
+provide translations of its graphical interfaces in many languages 
+(27 languages as of January 2011).  In order to improve the level of 
+translation for all supported languages it is important to be able to 
+monitor how complete support for each language is.
+
+The MythTV Translation Status tool is a collection of shell and Perl 
+scripts that analyses the current production and stable release code 
+for MythTV, and produces HTML output  that includes:
+
+i)  a summary page showing the overall percentage completion of all 
+    translatable strings for all supported languages; and
+ii) a detailed summary page on a per-component basis showing the actual 
+    number of translated strings for all supported languages
+
+The summary page shows 10 sets of results per language (the current 
+results and 9 historic results).
+
+Scripts are provided to allow analysis of both Qt3 and Qt4-based releases
+of MythTV.
+
+[1] http://www.mythtv.org
+
+
+LAYOUT
+
+Files included with MythTV Translation Status are:
+
+tools/      the shell and Perl scripts that perform the translation analysis
+            for current Qt4-based versions of MythTV
+tools/qt3   replacement scripts that enable the translation analysis
+            for pre-0.22 Qt3-based versions of MythTV
+
+templates/  the Template::Toolkit templates and CSS file used to produce the 
+            HTML output.
+README      this file
+COPYING     a copy of the GNU GPLv3 licence
+
+
+CONFIGURATION
+
+Before running the status tool, a local clone of the MythTV git repository 
+[2] is required.  Please note that this tool currently removes all locally 
+modified files from the local repository  (git reset --hard) so you may 
+want to run this tool on a separate clone of the MythTV code.
+
+All required configuration is performed in the configuration section of the 
+check-outstanding-* shell scripts.  Configuration sections are:
+
+i)   the locations of the Qt4 lupdate and lrelease tools;
+ii)  the locations of the MythTV Translation Status tools and templates;
+iii) the location of the local git clone of the MythTV source code;
+iv)  the desired root output directory for all results; and
+v)   the branch to analyse and output directory for branch's results
+
+Note that once configured, you will only need to change settings if you want 
+to start monitoring another branch of the code. In this case you will need 
+to update the "Branch-specific settings" settings to avoid overwriting 
+existing results.
+
+[2] https://github.com/MythTV/mythtv.git
+
+
+RUNNING THE STATUS TOOL
+
+To run the MythTV Translation Status tool, run:
+
+tools/check-outstanding-master - to analyse the translation status of the 
+                                 current 'master' branch; or
+tools/check-outstanding-fixes  - to analyse the translation status of the 
+                                 configured 'fixes' branch
+
+These scripts call all other required scripts automatically. In normal 
+usage, no other programs need to be called manually. However, the 
+tools/revert-dirs script can be called to roll-back one set of results 
+at a time if required.
+
+
+ANALYSING OLD RELEASES OF MYTHTV
+
+Versions of MythTV prior to 0.22 were built using the Qt3 toolkit. Specfic 
+Qt3-based replacement scripts for testing old versions of MythTV are provided
+and are found in the tools/qt3 directory. These scripts should replace the
+identically-named scripts in tools/.
+
+
+VIEWING THE RESULTS
+
+Each branch's output directory contains an index.html file that can be 
+viewed to see that branch's results and also navigate to other branches 
+that have been tested.
+
+
+ISSUES/FUTURE WORK
+
+The multiple tools/check-outstanding-* scripts could be combined into a 
+single script that could take the desired branch to anaylse as a runtime 
+argument on the command line. This would reduce duplication and makes 
+it easier to check multiple branches. It is very likely this will be 
+implemented in the future.
+
+Template generation may also generate warnings to the console if it is 
+run when there are fewer than 9 sets of historic results available. 
+Support to ignore these warnings may be added in the future.
+
+The tool currently requires manual editing of the HTML results in order to 
+add links to new branches that are analysed and are not listed in the 
+templates used to generate the output. Support to do this automatically 
+may be added in the future.
+
+
+THANKS TO
+
+MythTV Translation Status is inspired by and includes parts of the 
+xmltv-tester tool initially written by Mattias Holmlund [3], and later 
+modified by Chris Butler [4].
+
+[3] http://www.holmlund.se/mattias/
+[4] http://git.crustynet.org.uk/?p=xmltv-tester.git
+
+
+COPYRIGHT AND LICENCE
+
+MythTV Translation Status is Copyright (c) Nick Morrott 2010, 2011
+
+Code from xmltv-tester is Copyright (c) Mattias Holmlund 2009, 2010 and 
+Chris Butler 2010.
+
+MythTV Translation Status is licenced under the GNU GPL v3.  A copy of this 
+licence is provided in the file COPYING.

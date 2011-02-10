@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+
+# run-lupdate
+#
+# Copyright (c) 2010, 2011 Nick Morrott.
+# Copyright (c) 2009, 2010 Mattias Holmlund.
+
+# This file is part of MythTV Translation Tool.
+#
+# MythTV Translation Tool is free software: you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+#
+# MythTV Translation Tool is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General 
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with MythTV Translation Tool.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+
+use IO::File;
+use IO::Wrap qw/wraphandle/;
+
+if( scalar( @ARGV ) != 4 ) {
+  print STDERR << "EOH";
+
+run-lupdate <mythtv_git_dir> <resultdir> <lupdate_bin> <lrelease_bin>
+
+mythtv_git_dir shall contain a checkout of github.com/MythTV/mythtv.git
+resultdir shall be a non-existent directory where the output will be placed.
+lupdate_bin shall be the path to the lupdate binary with options
+lrelease_bin shall be the path to the lrelease binary with options
+
+EOH
+
+  exit 1;
+}
+
+my( $mythtv_git_dir, $resultdir, $lupdate_bin, $lrelease_bin ) = @ARGV;
+
+my $stdout = wraphandle( \*STDOUT );
+my $output_fh = $stdout;
+
+# run lupdate (first run may give incorrect totals, need to understand underlying cause)
+set_output( "$resultdir/lupdate.log" );
+run_lupdate( $mythtv_git_dir, "$resultdir" );
+set_output();
+
+# next rerun lupdate with logging to get correct totals
+set_output( "$resultdir/lupdate.log" );
+run_lupdate( $mythtv_git_dir, "$resultdir" );
+set_output();
+
+# finally run lrelease to get actual number of completed translations
+set_output( "$resultdir/lrelease.log" );
+run_lrelease( $mythtv_git_dir, "$resultdir" );
+set_output();
+
+# run lupdate to check source for translations
+sub run_lupdate {
+  my( $srcdir, $resultdir ) = @_;
+  run_cmd( $resultdir, "find $srcdir -name translate.pro |sort |xargs $lupdate_bin" );
+}
+
+# run lrelease to build and determine number of finished translations
+sub run_lrelease {
+  my( $srcdir, $resultdir ) = @_;
+  run_cmd( $resultdir, "find $srcdir -name translate.pro |sort |xargs $lrelease_bin" );
+}
+
+sub set_output {
+  my( $filename ) = @_;
+
+  $output_fh->close() if $output_fh != $stdout;
+  if( defined $filename ) {
+    $output_fh = new IO::File "> $filename";
+    die "Failed to write to $filename" if not defined $output_fh; 
+  }
+  else {
+#    $output_fh = new IO::File "> /dev/null";
+    $output_fh = $stdout;
+    die "Failed to write to /dev/null" if not defined $output_fh; 
+  }
+}
+
+sub run_cmd {
+  my( $dir, $cmd ) = @_;
+
+  my $output = qx/cd $dir; $cmd 2>&1/;
+  $output_fh->print( $output );
+}

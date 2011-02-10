@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# check-outstanding-fixes
+#
+# Copyright (c) 2010, 2011 Nick Morrott.
+
+# This file is part of MythTV Translation Tool.
+#
+# MythTV Translation Tool is free software: you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+#
+# MythTV Translation Tool is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General 
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with MythTV Translation Tool.  If not, see <http://www.gnu.org/licenses/>.
+
+###########################################################
+#                      Qt4 settings                       #
+###########################################################
+#
+# Path/options for lupdate binary
+LUPDATE_BIN="/usr/bin/lupdate-qt4 -no-obsolete"
+#
+# Path/options for lrelease binary
+LRELEASE_BIN="/usr/bin/lrelease-qt4 -nounfinished"
+
+###########################################################
+#             Locations of scripts/templates              #
+###########################################################
+#
+# Path to main MythTV Translation Status dir
+ROOT_DIR="/home/nick/dev/src/git/mythtv-translation-status"
+#
+# Path to scripts
+TOOLS="$ROOT_DIR/tools"
+#
+# Path to templates
+TEMPLATES="$ROOT_DIR/templates"
+
+###########################################################
+#                MythTV source location                   #
+###########################################################
+#
+# Path to a clone of git://github.com/MythTV/mythtv.git
+GIT_SRC="/home/nick/dev/src/git/mythtv-git"
+
+###########################################################
+#                  Output directories                     #
+###########################################################
+#
+# Path to the root results dir. Results for each branch are 
+# stored under this dir
+ROOT_RESULT_DIR="/home/nick/tempdir/mythtv-trans-tester"
+
+###########################################################
+#                Branch-specific settings                 #
+###########################################################
+#
+# git branch of the code to check
+BRANCH="fixes/0.24"
+#
+# Location of configured branch's output data
+RESULT_DIR="$ROOT_RESULT_DIR/0-24-fixes"
+
+###########################################################
+
+# empty and recreate working dir for latest stats
+rm -rf $RESULT_DIR/latest
+mkdir -p $RESULT_DIR/latest
+
+# clean out any updated files related to translations
+find $GIT_SRC -name *.ts | xargs rm -f
+find $GIT_SRC -name *.qm | xargs rm -f
+
+# update to current head
+cd $GIT_SRC/mythtv
+git reset --hard >/dev/null 2>&1
+git checkout $BRANCH >/dev/null 2>&1
+git pull >$RESULT_DIR/latest/git-pull.log 2>&1
+
+# determine most recent git commit ref
+REVISION=`git --no-pager log --max-count=1 --format=format:"%h"`
+
+# now build the output in stages...
+$TOOLS/run-lupdate      "$GIT_SRC" \
+                        "$RESULT_DIR/latest" \
+                        "$LUPDATE_BIN" \
+                        "$LRELEASE_BIN"
+
+$TOOLS/generate-details "$RESULT_DIR/latest/lupdate.log" \
+                        "$RESULT_DIR/latest/lrelease.log" \
+                        "$BRANCH" \
+                        "$RESULT_DIR/latest" \
+                        "$REVISION"
+
+$TOOLS/rotate-dirs      "$RESULT_DIR/latest" \
+                        "$RESULT_DIR"
+
+$TOOLS/generate-summary "$BRANCH" \
+                        "$RESULT_DIR" \
+                        "$REVISION"
+
+cp -f $TEMPLATES/mythtv-translation-status.css $ROOT_RESULT_DIR

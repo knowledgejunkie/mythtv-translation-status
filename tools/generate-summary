@@ -1,0 +1,105 @@
+#!/usr/bin/perl
+
+# generate-summary
+#
+# Copyright (c) 2010, 2011 Nick Morrott.
+# Copyright (c) 2009, 2010 Mattias Holmlund.
+
+# This file is part of MythTV Translation Tool.
+#
+# MythTV Translation Tool is free software: you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+#
+# MythTV Translation Tool is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General 
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with MythTV Translation Tool.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+
+use File::Slurp;
+use Template;
+use FindBin;
+
+if( scalar( @ARGV ) != 3 ) {
+  print STDERR << "EOH";
+
+generate-summary <src_type> <dir> <revision>
+
+src_type shall be the branch of the source code being analysed
+dir shall be the directory under which results for this branch are stored
+revision shall be the latest revision of the results being analysed
+
+EOH
+
+  exit 1;
+}
+
+my( $srctype, $dir, $revision ) = @ARGV;
+
+my @results;
+for( my $i = 0; $i < 10; $i++ ) {
+    $results[$i] = loadvar( "$dir/$i/summary.dump" );
+}
+
+my %languages;
+
+foreach my $d (@results) {
+    next unless defined $d;
+    foreach my $key (keys %{$d->{'by_lang'}}) {
+	$languages{$key} = 1;
+    }
+}
+
+# some useful options (see below for full list)
+my $config = {
+    INCLUDE_PATH => "$FindBin::Bin/../templates/",
+    INTERPOLATE  => 1,               # expand "$var" in plain text
+    POST_CHOMP   => 1,               # cleanup whitespace
+#   PRE_PROCESS  => 'header',        # prefix each template
+    EVAL_PERL    => 0,               # evaluate Perl code blocks
+};
+
+# create Template object
+my $template = Template->new($config);
+
+# define template variables for replacement
+my $vars = {
+  srctype => $srctype,
+  revision => $revision,
+  date => scalar localtime(time),
+  results => \@results,
+  languages => [sort keys %languages],
+  };
+
+# process input template, substituting variables
+$template->process( 'summaryreport', $vars, "$dir/index.html" )
+    || die $template->error();
+
+sub loadvar {
+    my( $filename ) = @_;
+    
+    if( -s $filename ) {
+	my $text = read_file( $filename ) or return undef;
+       	return eval $text;
+    }
+    else {
+	return {};
+    }
+}
+
+sub time2date {
+    my( $t ) = @_;
+
+    return "" unless defined $t;
+
+    my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+	localtime( $t );
+    return sprintf( '%d-%02d-%02d', $year+1900, $mon+1, $mday );
+}
