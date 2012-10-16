@@ -1,7 +1,7 @@
 <html>
     <head>
     <title>MythTV Translation Status :: Summary :: [% srctype %] at commit [% revision %]</title>
-    <link rel="stylesheet" type="text/css" href="../mythtv-translation-status.css" />
+    <link rel="stylesheet" type="text/css" href="../mythtv-trans-tester.css" />
     </head>
 <body>
 <h1>MythTV Translation Status<br>
@@ -11,12 +11,14 @@ Overall % of strings translated</h1>
 <b>Generated:</b> [% date %]<br>
 <b>Contact me:</b> <a href="mailto:knowledgejunkie@gmail.com">Nick Morrott</a><br>
 <b>Display stats for:</b> | <a href="../master/">Master</a> |
+                            <a href="../0-26-fixes/">0.26-fixes</a> |
+                            <a href="../0-25-fixes/">0.25-fixes</a> |
                             <a href="../0-24-fixes/">0.24-fixes</a> |
                             <a href="../0-23-fixes/">0.23-fixes</a> |
                             <a href="../0-22-fixes/">0.22-fixes</a> |
                             <a href="../0-21-fixes/">0.21-fixes</a> |<br>
 <br>
-<b>Want to help?</b> <a href="http://www.mythtv.org/wiki/Translation">Click here for details on how to contribute to MythTV translations</a><br>
+<b>Want to help?</b> <a target="_blank" href="http://www.mythtv.org/wiki/Translation">Click here for details on how to contribute to MythTV translations</a><br>
 <b>Stats too low?</b> Make sure your <b>completed</b> translations are not marked as &quot;unfinished&quot; in QT Linguist/.ts file<br>
 </p>
 <table>

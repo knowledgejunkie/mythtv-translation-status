@@ -62,10 +62,10 @@ ROOT_RESULT_DIR="/home/nick/tempdir/mythtv-trans-tester"
 ###########################################################
 #
 # git branch of the code to check
-BRANCH="fixes/0.24"
+BRANCH="fixes/0.26"
 #
 # Location of configured branch's output data
-RESULT_DIR="$ROOT_RESULT_DIR/0-24-fixes"
+RESULT_DIR="$ROOT_RESULT_DIR/0-26-fixes"
 
 ###########################################################
 
@@ -105,4 +105,4 @@ $TOOLS/generate-summary "$BRANCH" \
                         "$RESULT_DIR" \
                         "$REVISION"
 
-cp -f $TEMPLATES/mythtv-translation-status.css $ROOT_RESULT_DIR
+cp -f $TEMPLATES/mythtv-trans-tester.css $ROOT_RESULT_DIR
