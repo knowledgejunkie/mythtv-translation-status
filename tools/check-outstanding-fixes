@@ -2,7 +2,7 @@
 
 # check-outstanding-fixes
 #
-# Copyright (c) 2010, 2011, 2013 Nick Morrott.
+# Copyright (c) 2010-15 Nick Morrott.
 
 # This file is part of MythTV Translation Tool.
 #
@@ -69,16 +69,24 @@ GIT_SRC="/home/nick/dev/src/git/mythtv-git"
 
 ###########################################################
 
+# First, check the MythTV source tree for untracked/staged
+# files and abort if we find any:
+cd $GIT_SRC/mythtv
+
+if output=$(git status --porcelain) && [ -z "$output" ]; then
+    echo "Repository is clean, continuing..."
+else
+    echo "There are modified/untracked files in this repository, aborting..."
+    echo "Please commit or delete these files before running this script again"
+    echo ""
+    exit 1
+fi
+
 # empty and recreate working dir for latest stats
 rm -rf $RESULT_DIR/latest
 mkdir -p $RESULT_DIR/latest
 
-# clean out any updated files related to translations
-find $GIT_SRC -name *.ts | xargs rm -f
-find $GIT_SRC -name *.qm | xargs rm -f
-
 # update to current head
-cd $GIT_SRC/mythtv
 git reset --hard >/dev/null 2>&1
 git checkout $BRANCH >/dev/null 2>&1
 git pull >$RESULT_DIR/latest/git-pull.log 2>&1
@@ -106,3 +114,7 @@ $TOOLS/generate-summary "$BRANCH" \
                         "$REVISION"
 
 cp -f $TEMPLATES/mythtv-trans-tester.css $ROOT_RESULT_DIR
+
+# Finally, revert any files modified as a result of this script
+find $GIT_SRC -name *.ts | xargs git checkout --
+find $GIT_SRC -name *.qm | xargs git checkout --
