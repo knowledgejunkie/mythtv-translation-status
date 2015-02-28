@@ -20,6 +20,26 @@
 # with MythTV Translation Tool.  If not, see <http://www.gnu.org/licenses/>.
 
 ###########################################################
+#                  Output directories                     #
+###########################################################
+#
+# Path to the root results dir. Results for each branch are 
+# stored under this dir
+ROOT_RESULT_DIR="/home/nick/tempdir/mythtv-trans-tester"
+
+###########################################################
+#                Branch-specific settings                 #
+###########################################################
+#
+# git branch of the code to check
+BRANCH="master"
+#
+# Location of configured branch's output data
+RESULT_DIR="$ROOT_RESULT_DIR/master"
+
+###########################################################
+
+###########################################################
 #                      Qt4 settings                       #
 ###########################################################
 #
@@ -48,26 +68,6 @@ TEMPLATES="$ROOT_DIR/templates"
 #
 # Path to a clone of git://github.com/MythTV/mythtv.git
 GIT_SRC="/home/nick/dev/src/git/mythtv-git"
-
-###########################################################
-#                  Output directories                     #
-###########################################################
-#
-# Path to the root results dir. Results for each branch are 
-# stored under this dir
-ROOT_RESULT_DIR="/home/nick/tempdir/mythtv-trans-tester"
-
-###########################################################
-#                Branch-specific settings                 #
-###########################################################
-#
-# git branch of the code to check
-BRANCH="master"
-#
-# Location of configured branch's output data
-RESULT_DIR="$ROOT_RESULT_DIR/master"
-
-###########################################################
 
 # empty and recreate working dir for latest stats
 rm -rf $RESULT_DIR/latest
