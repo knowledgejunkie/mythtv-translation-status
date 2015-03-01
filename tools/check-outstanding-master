@@ -65,13 +65,13 @@ TEMPLATES="$ROOT_DIR/templates"
 ###########################################################
 #
 # Path to a clone of git://github.com/MythTV/mythtv.git
-GIT_SRC="/home/nick/dev/src/git/mythtv-git"
+GIT_SRC="/home/nick/dev/src/git/mythtv"
 
 ###########################################################
 
 # First, check the MythTV source tree for untracked/staged
 # files and abort if we find any:
-cd $GIT_SRC/mythtv
+cd $GIT_SRC
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
     echo "Repository is clean, continuing..."
