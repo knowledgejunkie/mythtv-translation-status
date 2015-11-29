@@ -18,6 +18,9 @@ td.complete  { width: 120px; }
 
 /* Data cells */
 
+/* White */
+td.p_undef   { background-color: #FFFFFF;
+               width: 90px; }
 /* Red */
 td.p00_20    { background-color: #FF0000;
                width: 90px; }

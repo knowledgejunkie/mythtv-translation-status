@@ -34,22 +34,26 @@ show_summary_available_branches();
   <td class="language">[% lang %]</td> 
 
   [% FOREACH r = results %]
-    [% IF r.by_lang.$lang < 20 %]
-      <td class="p00_20"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 40 %]
-      <td class="p20_40"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 60 %]
-      <td class="p40_60"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 70 %]
-      <td class="p60_70"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 80 %]
-      <td class="p70_80"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 90 %]
-      <td class="p80_90"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang < 100 %]
-      <td class="p90_99"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
-    [% ELSIF r.by_lang.$lang == 100 %]
-      <td class="p100"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+    [% IF r.by_lang.$lang.defined %]
+      [% IF r.by_lang.$lang < 20 %]
+        <td class="p00_20"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 40 %]
+        <td class="p20_40"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 60 %]
+        <td class="p40_60"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 70 %]
+        <td class="p60_70"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 80 %]
+        <td class="p70_80"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 90 %]
+        <td class="p80_90"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang < 100 %]
+        <td class="p90_99"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% ELSIF r.by_lang.$lang == 100 %]
+        <td class="p100"><a href="[% loop.index %]/result.html#[% lang %]">[% FILTER format('%d%%') %][% r.by_lang.$lang %][% END %]</a></td>
+      [% END %]
+    [% ELSE %]
+      <td class="p_undef"></td>
     [% END %]
   [% END %]
 </tr>

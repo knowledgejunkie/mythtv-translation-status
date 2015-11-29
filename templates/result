@@ -34,33 +34,38 @@ show_result_available_branches();
       [% FOREACH component = by_lang.$lang.by_component.keys.sort %]
       <tr>
         <td class="component">[% component %]</td>
-        [% IF by_lang.$lang.by_component.$component.overall < 20 %]
-          <td class="p00_20">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p00_20">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 40 %]
-          <td class="p20_40">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p20_40">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 60 %]
-          <td class="p40_60">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p40_60">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 70 %]
-          <td class="p60_70">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p60_70">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 80 %]
-          <td class="p70_80">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p70_80">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 90 %]
-          <td class="p80_90">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p80_90">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall < 100 %]
-          <td class="p90_99">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p90_99">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSIF by_lang.$lang.by_component.$component.overall == 100 %]
-          <td class="p100">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
-          <td class="p100">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
-        [% ELSE %]
+        [% IF by_lang.$lang.by_component.$component.overall.defined %]
+          [% IF by_lang.$lang.by_component.$component.overall < 20 %]
+            <td class="p00_20">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p00_20">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 40 %]
+            <td class="p20_40">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p20_40">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 60 %]
+            <td class="p40_60">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p40_60">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 70 %]
+            <td class="p60_70">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p60_70">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 80 %]
+            <td class="p70_80">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p70_80">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 90 %]
+            <td class="p80_90">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p80_90">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall < 100 %]
+            <td class="p90_99">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p90_99">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSIF by_lang.$lang.by_component.$component.overall == 100 %]
+            <td class="p100">[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
+            <td class="p100">[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% ELSE %]
             <td>[% FILTER format('%d%%') %][% by_lang.$lang.by_component.$component.overall %][% END %]</td>
             <td>[% by_lang.$lang.by_component.$component.completed %] of [% by_lang.$lang.by_component.$component.total %]</td>
+          [% END %]
+        [% ELSE %]
+          <td class="p_undef"></td>
+          <td class="p_undef"></td>
         [% END %]
       </tr>
       [% END %]
