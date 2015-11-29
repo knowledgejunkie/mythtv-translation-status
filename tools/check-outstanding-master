@@ -113,7 +113,12 @@ $TOOLS/generate-summary "$BRANCH" \
                         "$RESULT_DIR" \
                         "$REVISION"
 
-cp -f $TEMPLATES/mythtv-trans-tester.css $ROOT_RESULT_DIR
+mkdir -p $ROOT_RESULT_DIR/css/
+cp -f $TEMPLATES/mythtv-trans-tester.css $ROOT_RESULT_DIR/css/
+
+mkdir -p $ROOT_RESULT_DIR/js/
+cp -f $TEMPLATES/mythtv-trans-tester.js $ROOT_RESULT_DIR/js/
+
 
 # Finally, revert any files modified as a result of this script
 find $GIT_SRC -name *.ts | xargs git checkout --

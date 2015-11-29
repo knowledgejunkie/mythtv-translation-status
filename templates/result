@@ -1,23 +1,19 @@
 <html>
     <head>
     <title>MythTV Translation Status :: Detailed :: [% meta.srctype %] at commit [% meta.revision %]</title>
-    <link rel="stylesheet" type="text/css" href="../../mythtv-trans-tester.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mythtv-trans-tester.css" />
     </head>
 <body>
+<script src="../../js/mythtv-trans-tester.js"></script>
 <h1>MythTV Translation Status<br>
 % of strings translated per component</h1>
 <p>
 <b>Branch:</b> [% meta.srctype %] at commit [% meta.revision %]<br>
 <b>Generated:</b> [% meta.updated %]<br>
 <b>Contact me:</b> <a href="mailto:knowledgejunkie@gmail.com">Nick Morrott</a><br>
-<b>Display stats for:</b> | <a href="../../master/">Master</a> |
-                            <a href="../../0-27-fixes/">0.27-fixes</a> |
-                            <a href="../../0-26-fixes/">0.26-fixes</a> |
-                            <a href="../../0-25-fixes/">0.25-fixes</a> |
-                            <a href="../../0-24-fixes/">0.24-fixes</a> |
-                            <a href="../../0-23-fixes/">0.23-fixes</a> |
-                            <a href="../../0-22-fixes/">0.22-fixes</a> |
-                            <a href="../../0-21-fixes/">0.21-fixes</a> |<br>
+<script>
+show_result_available_branches();
+</script>
 <br>
 <b>Want to help?</b> <a target="_blank" href="http://www.mythtv.org/wiki/Translation">Click here for details on how to contribute to MythTV translations</a><br>
 <b>Stats too low?</b> Make sure your <b>completed</b> translations are not marked as &quot;unfinished&quot; in QT Linguist/.ts file<br>
