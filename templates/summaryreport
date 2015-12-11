@@ -8,7 +8,7 @@
 <h1>MythTV Translation Status<br>
 Overall % of strings translated</h1>
 <p>
-<b>Branch:</b> [% srctype %] at commit <a target="_blank" href="https://github.com/MythTV/mythtv/tree/[% revision %]">[% revision %]</a><br>
+<b>Branch:</b> [% srctype %] at commit <a target="_blank" href="https://github.com/MythTV/mythtv/commits/[% revision %]">[% revision %]</a><br>
 <b>Generated:</b> [% date %]<br>
 <b>Contact me:</b> <a href="mailto:knowledgejunkie@gmail.com">Nick Morrott</a><br>
 <script>
