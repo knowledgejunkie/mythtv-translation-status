@@ -31,7 +31,7 @@ show_summary_available_branches();
 <tbody>
 [% FOREACH lang = languages %]
 <tr>
-  <td class="language">[% lang %]</td> 
+  <td class="language">[% lang %]</td>
 
   [% FOREACH r = results %]
     [% IF r.by_lang.$lang.defined %]

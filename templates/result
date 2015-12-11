@@ -20,7 +20,7 @@ show_result_available_branches();
 </p>
 <br>
 <h2>Detailed analysis by language:</h2>
-    [% FOREACH lang = by_lang.keys.sort %] 
+    [% FOREACH lang = by_lang.keys.sort %]
     <b><a name='[% lang %]'>[% lang %]</a></b><br>
     <table>
       <thead>
