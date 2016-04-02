@@ -2,7 +2,7 @@
 
 # check-outstanding-fixes
 #
-# Copyright (c) 2010-15 Nick Morrott.
+# Copyright (c) 2010-16 Nick Morrott.
 
 # This file is part of MythTV Translation Tool.
 #
@@ -32,10 +32,10 @@ ROOT_RESULT_DIR="/home/nick/tempdir/mythtv-trans-tester"
 ###########################################################
 #
 # git branch of the code to check
-BRANCH="fixes/0.27"
+BRANCH="fixes/0.28"
 #
 # Location of configured branch's output data
-RESULT_DIR="$ROOT_RESULT_DIR/0-27-fixes"
+RESULT_DIR="$ROOT_RESULT_DIR/0-28-fixes"
 
 ###########################################################
 #                      Qt4 settings                       #
