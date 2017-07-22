@@ -2,7 +2,7 @@
 
 # check-outstanding-master
 #
-# Copyright (c) 2010-15 Nick Morrott.
+# Copyright (c) 2010-17 Nick Morrott.
 
 # This file is part of MythTV Translation Tool.
 #
@@ -38,14 +38,14 @@ BRANCH="master"
 RESULT_DIR="$ROOT_RESULT_DIR/master"
 
 ###########################################################
-#                      Qt4 settings                       #
+#                      Qt5 settings                       #
 ###########################################################
 #
 # Path/options for lupdate binary
-LUPDATE_BIN="/usr/bin/lupdate-qt4 -no-obsolete"
+LUPDATE_BIN="/usr/bin/lupdate -qt=5 -no-obsolete"
 #
 # Path/options for lrelease binary
-LRELEASE_BIN="/usr/bin/lrelease-qt4 -nounfinished"
+LRELEASE_BIN="/usr/bin/lrelease -qt=5 -nounfinished"
 
 ###########################################################
 #             Locations of scripts/templates              #
