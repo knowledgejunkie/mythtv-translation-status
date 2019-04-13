@@ -1,6 +1,7 @@
 function show_summary_available_branches() {
     document.write("<b>Display stats for:</b> | ");
     document.write("<a href=\"../master/\">Master</a> | ");
+    document.write("<a href=\"../30-fixes/\">30-fixes</a> | ");
     document.write("<a href=\"../29-fixes/\">29-fixes</a> | ");
     document.write("<a href=\"../0-28-fixes/\">0.28-fixes</a> | ");
     document.write("<a href=\"../0-27-fixes/\">0.27-fixes</a> | ");
@@ -15,6 +16,7 @@ function show_summary_available_branches() {
 function show_result_available_branches() {
     document.write("<b>Display stats for:</b> | ");
     document.write("<a href=\"../../master/\">Master</a> | ");
+    document.write("<a href=\"../../30-fixes/\">30-fixes</a> | ");
     document.write("<a href=\"../../29-fixes/\">29-fixes</a> | ");
     document.write("<a href=\"../../0-28-fixes/\">0.28-fixes</a> | ");
     document.write("<a href=\"../../0-27-fixes/\">0.27-fixes</a> | ");
