@@ -113,6 +113,12 @@ for (my $line = 0; $line <$#lrelease_lines; $line++) {
     $lrelease_lines[$line] =~ /(\d+)\sfinished/;
     my($completed) = ($1);
 
+    # print STDERR "Component: $component\n";
+    # print STDERR "Language : $lang\n";
+    # print STDERR "Completed: $completed\n";
+    # print STDERR "Total:     $details->{by_lang}->{$lang}->{'by_component'}->{$component}->{total}\n";
+    # print STDERR "\n";
+
     # store processed results per component
     $details->{by_lang}->{$lang}->{'by_component'}->{$component}->{completed} = $completed;
     $details->{by_lang}->{$lang}->{'by_component'}->{$component}->{overall} 
